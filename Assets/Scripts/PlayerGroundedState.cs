@@ -11,6 +11,8 @@ public class PlayerGroundedState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        Debug.Log("dash");
+        
     }
 
     public override void Exit()
@@ -22,9 +24,15 @@ public class PlayerGroundedState : PlayerState
     {
         base.Update();
 
-        if (Input.GetKey(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.LeftShift))
         {
+            stateMachine.ChangeState(player.dashState);
+        }
+        if (Input.GetKey(KeyCode.Space)&& player.IsGroundDetected())
+        {
+            
             stateMachine.ChangeState(player.JumpState);
+           
         }
     }
 }
