@@ -5,8 +5,11 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Move info")]
+    public float moveSPeed;
+    public float jumpForce;
+    [Space]
     #region Components;
-
     public Animator animator;
     public Rigidbody2D rigidbody { get; private set; }
     #endregion
@@ -20,8 +23,7 @@ public class Player : MonoBehaviour
     
     #endregion
 
-    public float moveSPeed;
-    public float jumpForce;
+
     private void Awake()
     {
         stateMachine = new PlayerStateMachine();

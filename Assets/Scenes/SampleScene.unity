@@ -498,9 +498,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 91ada05c4df6550499a912c6560df5ea, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animator: {fileID: 1392385015}
   moveSPeed: 12
-  jumpForce: 10
+  jumpForce: 20
+  animator: {fileID: 1392385015}
 --- !u!50 &1472146723
 Rigidbody2D:
   serializedVersion: 4
