@@ -13,14 +13,14 @@ public class PlayerMoveState : PlayerState
         base.Enter();
     }
 
-    public override void Update()
-    {
-        base.Update();
-    }
-
     public override void Exit()
     {
         base.Exit();
+    }
+
+    public override void Update()
+    {
+        base.Update();
         player.PlayerMovement(xInput, player.rigidbody.velocity.y);
 
         if (xInput == 0)
