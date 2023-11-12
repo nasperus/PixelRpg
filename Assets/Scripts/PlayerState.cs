@@ -20,17 +20,20 @@ public class PlayerState
 
     public virtual void Enter()
     {
-        player.animator.SetBool(animBoolName,true);
+       player.animator.SetBool(animBoolName,true);
+      
     }
 
     public virtual void Update()
     {
         xInput = Input.GetAxisRaw("Horizontal");
+       
     }
 
     public virtual void Exit()
     {
         player.animator.SetBool(animBoolName,false);
+       
     }
 
 

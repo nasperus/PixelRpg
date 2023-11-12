@@ -6,7 +6,8 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     #region Components;
-    public  Animator animator { get; private set; }
+
+    public Animator animator;
     public Rigidbody2D rigidbody { get; private set; }
     #endregion
     
@@ -14,6 +15,7 @@ public class Player : MonoBehaviour
     public PlayerStateMachine stateMachine { get; private set; }
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
+    
     #endregion
 
     public float moveSPeed = 12f;
@@ -40,6 +42,6 @@ public class Player : MonoBehaviour
     public void PlayerMovement(float xVelocity, float yVelocity)
     {
         rigidbody.velocity = new Vector2(xVelocity, yVelocity);
-        Debug.Log("why");
+        
     }
 }
