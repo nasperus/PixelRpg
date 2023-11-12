@@ -11,6 +11,7 @@ public class PlayerMoveState : PlayerState
     public override void Enter()
     {
         base.Enter();
+       
     }
 
     public override void Exit()
@@ -21,8 +22,8 @@ public class PlayerMoveState : PlayerState
     public override void Update()
     {
         base.Update();
-        player.PlayerMovement(xInput, player.rigidbody.velocity.y);
-
+        player.PlayerMovement(xInput * player.moveSPeed, player.rigidbody.velocity.y);
+        
         if (xInput == 0)
         {
             stateMachine.ChangeState(player.idleState);

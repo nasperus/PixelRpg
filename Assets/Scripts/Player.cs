@@ -15,7 +15,8 @@ public class Player : MonoBehaviour
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
     #endregion
-  
+
+    public float moveSPeed = 12f;
     private void Awake()
     {
         stateMachine = new PlayerStateMachine();
@@ -39,5 +40,6 @@ public class Player : MonoBehaviour
     public void PlayerMovement(float xVelocity, float yVelocity)
     {
         rigidbody.velocity = new Vector2(xVelocity, yVelocity);
+        Debug.Log("why");
     }
 }
