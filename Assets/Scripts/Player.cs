@@ -15,15 +15,21 @@ public class Player : MonoBehaviour
     public PlayerStateMachine stateMachine { get; private set; }
     public PlayerIdleState idleState { get; private set; }
     public PlayerMoveState moveState { get; private set; }
+    public PlayerJumpState JumpState { get; private set; }
+    public PlayerAirState airState { get; private set; }
     
     #endregion
 
-    public float moveSPeed = 12f;
+    public float moveSPeed;
+    public float jumpForce;
     private void Awake()
     {
         stateMachine = new PlayerStateMachine();
+        
         idleState = new PlayerIdleState(this, stateMachine,"Idle");
         moveState = new PlayerMoveState(this, stateMachine, "Move");
+        JumpState = new PlayerJumpState(this, stateMachine, "Jump");
+        airState  = new PlayerAirState(this, stateMachine, "Jump");
 
     }
 

@@ -8,8 +8,10 @@ public class PlayerState
     protected PlayerStateMachine stateMachine;
     protected Player player;
     private string animBoolName;
-
     protected float xInput;
+
+    private readonly int yVelocity = Animator.StringToHash("yVelocity");
+   
     public PlayerState(Player player, PlayerStateMachine stateMachine, string animBoolName)
     {
         this.player = player;
@@ -27,6 +29,7 @@ public class PlayerState
     public virtual void Update()
     {
         xInput = Input.GetAxisRaw("Horizontal");
+        player.animator.SetFloat(yVelocity, player.rigidbody.velocity.y);
        
     }
 
