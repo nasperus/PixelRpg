@@ -28,7 +28,7 @@ public class PlayerAirState : PlayerState
             stateMachine.ChangeState(player.idleState);
         
         if (xInput != 0)
-            player.PlayerVelocity(player.moveSPeed *.8f * xInput, player.rigidbody.velocity.y);
+            player.PlayerVelocity(player.moveSPeed *.8f * xInput, rigidbody.velocity.y);
         
         if(player.IsWallDetected())
             stateMachine.ChangeState(player.WallSlide);

@@ -12,7 +12,7 @@ public class PlayerJumpState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        player.rigidbody.velocity = new Vector2(player.rigidbody.velocity.x, player.jumpForce);
+        rigidbody.velocity = new Vector2(rigidbody.velocity.x, player.jumpForce);
         
     }
 

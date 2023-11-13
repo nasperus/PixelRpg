@@ -10,8 +10,9 @@ public class PlayerState
     private string animBoolName;
     protected float xInput;
     protected float yInput;
-    
+    protected Rigidbody2D rigidbody;
     protected float stateTimer;
+    protected bool trigerCalled;
     private readonly int yVelocity = Animator.StringToHash("yVelocity");
    
     public PlayerState(Player player, PlayerStateMachine stateMachine, string animBoolName)
@@ -25,7 +26,8 @@ public class PlayerState
     public virtual void Enter()
     {
        player.animator.SetBool(animBoolName,true);
-      
+       rigidbody = player.rigidbody;
+       trigerCalled = false;
     }
 
     public virtual void Update()
@@ -41,6 +43,11 @@ public class PlayerState
     {
         player.animator.SetBool(animBoolName,false);
        
+    }
+
+    public virtual void AnimationFinishTrigger()
+    {
+        trigerCalled = true;
     }
 
 }
