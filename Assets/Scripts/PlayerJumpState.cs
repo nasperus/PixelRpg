@@ -6,6 +6,7 @@ public class PlayerJumpState : PlayerState
 {
     public PlayerJumpState(Player player, PlayerStateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
+        
     }
 
     public override void Enter()
@@ -24,9 +25,8 @@ public class PlayerJumpState : PlayerState
     {
         base.Update();
         if (player.rigidbody.velocity.y < 0)
-        {
             stateMachine.ChangeState(player.airState);
-        }
+        
         
     }
 }

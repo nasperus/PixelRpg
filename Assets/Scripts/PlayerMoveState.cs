@@ -6,12 +6,12 @@ public class PlayerMoveState : PlayerGroundedState
 {
     public PlayerMoveState(Player player, PlayerStateMachine stateMachine, string animBoolName) : base(player, stateMachine, animBoolName)
     {
+        
     }
 
     public override void Enter()
     {
         base.Enter();
-       
     }
 
     public override void Exit()
@@ -22,12 +22,12 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Update()
     {
         base.Update();
-        player.PlayerMovement(xInput * player.moveSPeed, player.rigidbody.velocity.y);
         
-        if (xInput == 0)
-        {
+        player.PlayerVelocity(xInput * player.moveSPeed, player.rigidbody.velocity.y);
+        
+        if (xInput == 0 || player.IsWallDetected())
             stateMachine.ChangeState(player.idleState);
-        }
+        
        
     }
 }

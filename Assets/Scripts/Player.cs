@@ -8,9 +8,13 @@ public class Player : MonoBehaviour
     [Header("Move info")]
     public float moveSPeed;
     public float jumpForce;
+
+    [Header("Dash info")] 
+    [SerializeField] private float dashCooldown;
+    private float dashTimer;
     public float dashSpeed;
     public float dashDuration;
-    [HideInInspector] public float dashing;
+    public float dashDir { get; private set; }
 
     [Space] [Header("Collision info")]
     [SerializeField] private Transform groundCheck;
@@ -18,7 +22,10 @@ public class Player : MonoBehaviour
     [SerializeField] private Transform wallCheck;
     [SerializeField] private float wallCheckDistance;
     [SerializeField] private LayerMask whatIsGround;
-   
+    private Vector2 raycastDirection;
+
+    public int facingDir { get; private set; } = 1;
+    private bool facingRight = true;
     
     #region Components;
     public Animator animator;
@@ -32,10 +39,11 @@ public class Player : MonoBehaviour
     public PlayerJumpState JumpState { get; private set; }
     public PlayerAirState airState { get; private set; }
     public PlayerDashState dashState { get; private set; }
-    
+    public PlayerWallSlideState WallSlide { get; private set; }
+    public PlayerWallJumpState walljump { get; private set; }
     #endregion
 
-
+    private PlayerState playerState;
     private void Awake()
     {
         stateMachine = new PlayerStateMachine();
@@ -45,6 +53,8 @@ public class Player : MonoBehaviour
         JumpState = new PlayerJumpState(this, stateMachine, "Jump");
         airState  = new PlayerAirState(this, stateMachine, "Jump");
         dashState = new PlayerDashState(this, stateMachine, "Dash");
+        WallSlide = new PlayerWallSlideState(this, stateMachine, "WallSlide");
+        walljump  = new PlayerWallJumpState(this, stateMachine, "WallJump");
     }
         
 
@@ -60,29 +70,55 @@ public class Player : MonoBehaviour
     private void Update()
     {
         stateMachine.currentState.Update();
-        Debug.DrawRay(groundCheck.position, -transform.up * groundCheckDistance,Color.red);
-        
+        Debug.DrawRay(groundCheck.position, -transform.up * groundCheckDistance, Color.red);
+        CheckForDashInput();
+       
     }
 
-    public void PlayerMovement(float xVelocity, float yVelocity)
+    private void CheckForDashInput()
+    {
+        if (IsWallDetected())
+            return;
+        
+        dashTimer -= Time.deltaTime;
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashTimer < 0)
+        {
+            dashTimer = dashCooldown;
+            dashDir = Input.GetAxisRaw("Horizontal");
+            if (dashDir != 0)
+                stateMachine.ChangeState(dashState);
+            
+        }
+   
+    }
+
+    public void PlayerVelocity(float xVelocity, float yVelocity)
     {
         rigidbody.velocity = new Vector2(xVelocity, yVelocity);
-        bool characteFlip = rigidbody.velocity != Vector2.zero;
-        if (characteFlip)
-        { 
-            transform.localScale = new Vector2(Math.Sign(rigidbody.velocity.x), 1);
-        }
- 
+        FlipController(xVelocity);
+    }
+
+    public void Flip()
+    {
+        facingDir *= -1;
+        facingRight = !facingRight;
+        transform.Rotate(0,180,0);
+    }
+
+    public void FlipController(float x)
+    {
+        if (x > 0 && !facingRight)
+            Flip();
+        else if (x < 0 && facingRight)
+            Flip();
     }
 
     public bool IsGroundDetected() =>
-        Physics2D.Raycast(groundCheck.position, -transform.up, groundCheckDistance, whatIsGround);
-        
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallCheckDistance, wallCheck.position.y));
-    }
-    
+        Physics2D.Raycast(groundCheck.position,-transform.up, groundCheckDistance,whatIsGround);
+
+    public bool IsWallDetected() =>
+        Physics2D.Raycast(wallCheck.position,Vector2.right * facingDir,wallCheckDistance,whatIsGround);
+
+
     
 }
