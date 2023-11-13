@@ -11,7 +11,7 @@ public class PlayerGroundedState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        Debug.Log("dash");
+        
         
     }
 

@@ -22,7 +22,6 @@ public class PlayerMoveState : PlayerGroundedState
     public override void Update()
     {
         base.Update();
-        
         player.PlayerMovement(xInput * player.moveSPeed, player.rigidbody.velocity.y);
         
         if (xInput == 0)

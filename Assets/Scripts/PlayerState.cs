@@ -31,7 +31,7 @@ public class PlayerState
     public virtual void Update()
     {
         stateTimer -= Time.deltaTime;
-        
+
         xInput = Input.GetAxisRaw("Horizontal");
         player.animator.SetFloat(yVelocity, player.rigidbody.velocity.y);
         
