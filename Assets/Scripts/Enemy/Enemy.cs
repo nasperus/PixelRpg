@@ -3,21 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D), typeof(Animator))]
-public class Enemy : MonoBehaviour
+public class Enemy : Entity
 {
-    public Rigidbody2D rigidbody { get; private set; }
-    public Animator animator { get; private set; }
-    
     public EnemyStateMachine stateMachine { get; private set; }
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         stateMachine = new EnemyStateMachine();
     }
 
-    private void Update()
+    protected override void Update()
     {
+        base.Update();
         stateMachine.currentState.Update();
     }
 }
