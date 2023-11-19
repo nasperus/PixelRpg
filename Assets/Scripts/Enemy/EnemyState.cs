@@ -22,11 +22,12 @@ public class EnemyState
     public virtual void Enter()
     {
         trigerCalled = false;
+        enemy.animator.SetBool(animBoolName,true);
     }
 
     public virtual void Exit()
     {
-        
+        enemy.animator.SetBool(animBoolName,false);
     }
 
     public virtual void Update()
