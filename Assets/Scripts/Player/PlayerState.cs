@@ -26,7 +26,7 @@ public class PlayerState
     public virtual void Enter()
     {
        player.animator.SetBool(animBoolName,true);
-       rigidbody = player.rigidbody;
+       rigidbody = player.GetComponent<Rigidbody2D>();
        trigerCalled = false;
     }
 
@@ -35,7 +35,7 @@ public class PlayerState
         stateTimer -= Time.deltaTime;
         xInput = Input.GetAxisRaw("Horizontal");
         yInput = Input.GetAxisRaw("Vertical");
-        player.animator.SetFloat(yVelocity, player.rigidbody.velocity.y);
+        player.animator.SetFloat(yVelocity, player.GetComponent<Rigidbody2D>().velocity.y);
         
     }
 

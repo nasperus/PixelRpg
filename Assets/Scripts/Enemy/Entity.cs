@@ -36,11 +36,11 @@ public class Entity : MonoBehaviour
         
     }
     #region Velocity
-    public void ZeroVelocity() => GetComponent<Rigidbody>().velocity = new Vector2(0, 0);
+    public void ZeroVelocity() => GetComponent<Rigidbody2D>().velocity = new Vector2(0, 0);
     
     public void PlayerVelocity(float xVelocity, float yVelocity)
     {
-        GetComponent<Rigidbody>().velocity = new Vector2(xVelocity, yVelocity);
+        GetComponent<Rigidbody2D>().velocity = new Vector2(xVelocity, yVelocity);
         FlipController(xVelocity);
     }
     #endregion
