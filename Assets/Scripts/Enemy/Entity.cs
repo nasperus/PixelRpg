@@ -44,8 +44,22 @@ public class Entity : MonoBehaviour
         FlipController(xVelocity);
     }
     #endregion
+    #region Flip
+    public virtual void Flip()
+    {
+        facingDir *= -1;
+        facingRight = !facingRight;
+        transform.Rotate(0,180,0);
+    }
 
-    
+    public virtual void FlipController(float x)
+    {
+        if (x > 0 && !facingRight)
+            Flip();
+        else if (x < 0 && facingRight)
+            Flip();
+    }
+    #endregion
     #region Collision
     public virtual bool IsGroundDetected() =>
         Physics2D.Raycast(groundCheck.position,-transform.up, groundCheckDistance,whatIsGround);
@@ -54,21 +68,6 @@ public class Entity : MonoBehaviour
         Physics2D.Raycast(wallCheck.position,Vector2.right * facingDir,wallCheckDistance,whatIsGround);
     #endregion
     
-    #region Flip
-    public void Flip()
-    {
-        facingDir *= -1;
-        facingRight = !facingRight;
-        transform.Rotate(0,180,0);
-    }
 
-    public void FlipController(float x)
-    {
-        if (x > 0 && !facingRight)
-            Flip();
-        else if (x < 0 && facingRight)
-            Flip();
-    }
-    #endregion
 
 }
